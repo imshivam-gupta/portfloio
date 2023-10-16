@@ -41,7 +41,6 @@ export default function Projects() {
     })
   },[])
 
-
   const [state, setState] = useState({
     goToSlide: 0,
     offsetRadius: 2,
@@ -49,28 +48,19 @@ export default function Projects() {
     config: config.gentle
   });
 
+  
+  // useEffect(() => {
+  //   const intervalId = setInterval(autoMoveToNextSlide, 10000);
+  //   return () => clearInterval(intervalId);
+  // }, [state.goToSlide]);
+
+
   const autoMoveToNextSlide = () => {
     const nextSlideIndex = (state.goToSlide + 1) % slides.length;
     setState({ goToSlide: nextSlideIndex });
   };
 
-  // const autoMoveToNextSlide = () => {
-  //   const nextSlideIndex = (state.goToSlide + 1) % slides.length;
-  //   setState({
-  //     goToSlide: nextSlideIndex,
-  //     offsetRadius: state.offsetRadius, // Include other properties here
-  //     showNavigation: state.showNavigation,
-  //     config: state.config,
-  //   });
-  // };
   
-
-  useEffect(() => {
-    const intervalId = setInterval(autoMoveToNextSlide, 10000);
-    return () => clearInterval(intervalId);
-  }, [state.goToSlide]);
-
-
   let slides = images.map((image, index) => {
     console.log("Image at index", index, image);
     return {
@@ -87,8 +77,8 @@ export default function Projects() {
 
   const getTouches = (evt) => {
     return (
-      evt.touches || evt.originalEvent.touches // browser API
-    ); // jQuery
+      evt.touches || evt.originalEvent.touches 
+    ); 
   };
 
   const handleTouchStart = (evt) => {
@@ -109,22 +99,12 @@ export default function Projects() {
     let yDiff = yDown - yUp;
 
     if (Math.abs(xDiff) > Math.abs(yDiff)) {
-      /*most significant*/
       if (xDiff > 0) {
-        /* left swipe */
         setState({ goToSlide: state.goToSlide + 1 });
       } else {
-        /* right swipe */
         setState({ goToSlide: state.goToSlide - 1 });
       }
-    } else {
-      if (yDiff > 0) {
-        /* up swipe */
-      } else {
-        /* down swipe */
-      }
-    }
-    /* reset values */
+    } 
     xDown = null;
     yDown = null;
   };
@@ -143,6 +123,7 @@ export default function Projects() {
           <Carousel2
               slides={slides}
               goToSlide={state.goToSlide}
+              goToSlideDelay={10000}
               offsetRadius={state.offsetRadius}
               showNavigation={state.showNavigation}
               animationConfig={state.config}
