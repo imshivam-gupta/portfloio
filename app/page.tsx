@@ -3,6 +3,7 @@ import Contact from "@/components/contact";
 import Intro from "@/components/intro";
 import Projects from "@/components/projects";
 import SectionDivider from "@/components/section-divider";
+import Videos from "@/components/videos";
 
 export default async function Home() {
   return (
@@ -11,7 +12,7 @@ export default async function Home() {
       <SectionDivider />
       <About />
       <Projects />
-      <Projects />
+      <Videos />
       {/* <Skills /> */}
       {/* <Experience /> */}
       <Contact />

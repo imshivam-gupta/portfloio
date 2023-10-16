@@ -17,20 +17,20 @@ const Carousel2 = dynamic(() => import("react-spring-3d-carousel"), {
 type ProjectProps = (typeof projectsData)[number];
 
 async function getData() {
-  let res = await fetch("/api/images", {
+  let res = await fetch("/api/videos", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   });
-  let allImages = await res.json();
+  let allVideos = await res.json();
   console.log("Fetched");
-  console.log("Yipee", allImages);
+  console.log("Yipee", allVideos);
 
-  return allImages;
+  return allVideos;
 }
 
-export default function Projects() {
+export default function Videos() {
   const { ref } = useSectionInView("Paintings", 0.5);
 
   const [images, setImages] = useState([]);
@@ -58,19 +58,22 @@ export default function Projects() {
   //   setState({ goToSlide: nextSlideIndex });
   // };
 
+  
   let slides = images
-    .map((image, index) => {
-      console.log("Image at index", index, image);
+    .map((video, index) => {
+      console.log("video at index", index, video);
       return {
-        key: image._id,
+        key: video._id,
         content: (
-          <Image
-            src={image.imageuri}
-            alt={image.alt}
+          <iframe 
+            width="700" 
+            height="400"
+            src={video.videouri}
             className="w-[700px] !object-cover h-[400px] rounded-sm"
-            width={700}
-            height={400}
-          />
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+          </iframe>
         ),
       };
     })
