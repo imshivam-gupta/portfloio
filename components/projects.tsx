@@ -14,7 +14,6 @@ const Carousel2 = dynamic(() => import("react-spring-3d-carousel"), {
   ssr: false,
 });
 
-
 type ProjectProps = (typeof projectsData)[number];
 
 async function getData() {
@@ -26,67 +25,64 @@ async function getData() {
   });
   let allImages = await res.json();
   console.log("Fetched");
-  console.log("Yipee",allImages);
+  console.log("Yipee", allImages);
 
   return allImages;
 }
 
 export default function Projects() {
-  const { ref } = useSectionInView("Projects", 0.5);
+  const { ref } = useSectionInView("Paintings", 0.5);
 
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState([]);
 
-  useEffect(()=>{
-    getData().then((data)=>{
-      setImages(data.data)
-    })
-  },[])
+  useEffect(() => {
+    getData().then((data) => {
+      setImages(data.data);
+    });
+  }, []);
 
   const [state, setState] = useState({
     goToSlide: 0,
     offsetRadius: 2,
     showNavigation: true,
-    config: config.gentle
+    config: config.gentle,
   });
 
-  
   // useEffect(() => {
   //   const intervalId = setInterval(autoMoveToNextSlide, 10000);
   //   return () => clearInterval(intervalId);
   // }, [state.goToSlide]);
-
 
   // const autoMoveToNextSlide = () => {
   //   const nextSlideIndex = (state.goToSlide + 1) % slides.length;
   //   setState({ goToSlide: nextSlideIndex });
   // };
 
-  
-  let slides = images.map((image, index) => {
-    console.log("Image at index", index, image);
-    return {
-      key: image._id,
-      content: 
-        <Image 
-          src={image.imageuri} 
-          alt={image.alt} 
-          className="w-[700px] !object-cover h-[400px] rounded-sm"
-          width={700}
-          height={400}
-        />
-    };
-  }).map((slide, index) => {
-    return { ...slide, onClick: () => setState({ goToSlide: index }) };
-  });
-
+  let slides = images
+    .map((image, index) => {
+      console.log("Image at index", index, image);
+      return {
+        key: image._id,
+        content: (
+          <Image
+            src={image.imageuri}
+            alt={image.alt}
+            className="w-[700px] !object-cover h-[400px] rounded-sm"
+            width={700}
+            height={400}
+          />
+        ),
+      };
+    })
+    .map((slide, index) => {
+      return { ...slide, onClick: () => setState({ goToSlide: index }) };
+    });
 
   let xDown = null;
   let yDown = null;
 
   const getTouches = (evt) => {
-    return (
-      evt.touches || evt.originalEvent.touches 
-    ); 
+    return evt.touches || evt.originalEvent.touches;
   };
 
   const handleTouchStart = (evt) => {
@@ -112,36 +108,39 @@ export default function Projects() {
       } else {
         setState({ goToSlide: state.goToSlide - 1 });
       }
-    } 
+    }
     xDown = null;
     yDown = null;
   };
 
-
   return (
-    <section ref={ref} id="projects" className="scroll-mt-28 mb-28 h-[50vh] w-full">
+    <section
+      ref={ref}
+      id="projects"
+      className="scroll-mt-28 mb-28 h-[50vh] w-full"
+    >
       <SectionHeading>My Work</SectionHeading>
 
       <div
-        style={{  margin: "0 auto" }}
+        style={{ margin: "0 auto" }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         className="w-full h-full"
       >
-          <Carousel2
-              slides={slides}
-              goToSlide={state.goToSlide}
-              goToSlideDelay={10000}
-              offsetRadius={state.offsetRadius}
-              showNavigation={state.showNavigation}
-              animationConfig={state.config}
-            />
+        <Carousel2
+          slides={slides}
+          goToSlide={state.goToSlide}
+          goToSlideDelay={10000}
+          offsetRadius={state.offsetRadius}
+          showNavigation={state.showNavigation}
+          animationConfig={state.config}
+        />
       </div>
 
-      <div className="flex justify-center text-xl font-bold"> See my collection </div>
-
+      <div className="flex justify-center text-xl font-bold">
+        {" "}
+        See my collection{" "}
+      </div>
     </section>
   );
 }
-
-

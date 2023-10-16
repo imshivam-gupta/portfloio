@@ -5,18 +5,16 @@ import Projects from "@/components/projects";
 import SectionDivider from "@/components/section-divider";
 
 export default async function Home() {
-
   return (
     <main className="flex flex-col items-center px-4">
       <Intro />
       <SectionDivider />
+      <About />
       <Projects />
       <Projects />
       {/* <Skills /> */}
-      <About />
       {/* <Experience /> */}
       <Contact />
     </main>
   );
 }
-
