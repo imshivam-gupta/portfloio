@@ -50,7 +50,7 @@ export default function Videos() {
   // useEffect(() => {
   //   const intervalId = setInterval(autoMoveToNextSlide, 10000);
   //   return () => clearInterval(intervalId);
-  // }, [state.goToSlide]);
+  // }, []);
 
   // const autoMoveToNextSlide = () => {
   //   const nextSlideIndex = (state.goToSlide + 1) % slides.length;
@@ -59,7 +59,6 @@ export default function Videos() {
 
   let slides = images
     .map((video: VideoData, index) => {
-      console.log("video at index", index, video);
       return {
         key: video._id,
         content: (
@@ -120,7 +119,7 @@ export default function Videos() {
     <section
       ref={ref}
       id="videos"
-      className="scroll-mt-28 mb-28 h-[50vh] w-full"
+      className="scroll-mt-28 mb-28 h-[50vh] w-full "
     >
       <SectionHeading>Videos</SectionHeading>
 
