@@ -1,9 +1,14 @@
 "use client";
 
-import React from "react";
+import React ,{ useState } from 'react';
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { useSectionInView } from "@/lib/hooks";
+import Slider3d from './Slider3d';
+
+
+
+
 
 export default function About() {
   const { ref } = useSectionInView("About");
@@ -35,6 +40,8 @@ export default function About() {
         <span className="font-medium">full-time position</span> as a software
         developer. */}
       </p>
+
+      {/* <Slider3d /> */}
 
       {/* <p>
         <span className="italic">When I'm not coding</span>, I enjoy playing

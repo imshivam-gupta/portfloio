@@ -9,6 +9,7 @@ import { useState } from "react";
 import { config } from "react-spring";
 import { useEffect } from "react";
 import Image from "next/image";
+import Slider3d from "./Slider3d";
 
 const Carousel2 = dynamic(() => import("react-spring-3d-carousel"), {
   ssr: false,
@@ -67,8 +68,8 @@ export default function Projects() {
           <Image
             src={image.imageuri}
             alt={image.alt}
-            className="w-[700px] !object-cover h-[400px] rounded-sm"
-            width={700}
+            className="w-[900px] !object-cover h-[400px] rounded-sm"
+            width={900}
             height={400}
           />
         ),
@@ -90,6 +91,19 @@ export default function Projects() {
     xDown = firstTouch.clientX;
     yDown = firstTouch.clientY;
   };
+
+  const slidesprop = images.map((image, index) => {
+    return (
+        <Image
+          src={image.imageuri}
+          alt={image.alt}
+          className="!w-[400px] !object-cover h-[200px] rounded-sm max-w-[700px]"
+          width={400}
+          height={400}
+          key={index}
+        />
+    );
+  });
 
   const handleTouchMove = (evt) => {
     if (!xDown || !yDown) {
@@ -121,7 +135,7 @@ export default function Projects() {
     >
       <SectionHeading>Paintings</SectionHeading>
 
-      <div
+      {/* <div
         style={{ margin: "0 auto" }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -135,9 +149,11 @@ export default function Projects() {
           showNavigation={false}
           animationConfig={state.config}
         />
-      </div>
+      </div> */}
 
-      <div className="flex justify-center text-xl font-bold mt-4 cursor-pointer hover:underline-offset-2 hover:underline">
+      <Slider3d slides={slidesprop} classNameaddnl="mt-16"/>
+
+      <div className="flex justify-center text-xl font-bold mt-12 cursor-pointer hover:underline-offset-2 hover:underline">
         Browse all works
       </div>
     </section>
