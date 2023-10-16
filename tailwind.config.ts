@@ -16,6 +16,6 @@ module.exports = withMT({
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
   darkMode: "class",
 });

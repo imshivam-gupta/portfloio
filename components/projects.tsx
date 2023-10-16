@@ -55,10 +55,10 @@ export default function Projects() {
   // }, [state.goToSlide]);
 
 
-  const autoMoveToNextSlide = () => {
-    const nextSlideIndex = (state.goToSlide + 1) % slides.length;
-    setState({ goToSlide: nextSlideIndex });
-  };
+  // const autoMoveToNextSlide = () => {
+  //   const nextSlideIndex = (state.goToSlide + 1) % slides.length;
+  //   setState({ goToSlide: nextSlideIndex });
+  // };
 
   
   let slides = images.map((image, index) => {
