@@ -6,7 +6,13 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { BsArrowRight, BsLinkedin } from "react-icons/bs";
 import { HiDownload } from "react-icons/hi";
-import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaPinterest,
+  FaYoutube,
+} from "react-icons/fa";
 import { useSectionInView } from "@/lib/hooks";
 import { useActiveSectionContext } from "@/context/active-section-context";
 
@@ -65,7 +71,7 @@ export default function Intro() {
         <span className="font-bold">Hello, I'm Nitya.</span> I'm a{" "}
         <span className="font-bold">Artist</span> with{" "}
         <span className="font-bold">8 years</span> of experience. I enjoy
-        painting. 
+        painting.
       </motion.h1>
 
       <motion.div
@@ -88,7 +94,6 @@ export default function Intro() {
           <BsArrowRight className="opacity-70 group-hover:translate-x-1 transition" />
         </Link>
 
-       
         {/* <a
           className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
           href="https://linkedin.com"
@@ -96,10 +101,16 @@ export default function Intro() {
         >
           <BsLinkedin />
         </a> */}
-
         <a
           className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-          href="https://github.com"
+          href="https://www.linkedin.com/in/nitya-soni-673435296?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+          target="_blank"
+        >
+          <FaLinkedin />
+        </a>
+        <a
+          className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+          href="https://instagram.com/nityasoni.paintings?igshid=OGQ5ZDc2ODk2ZA%3D%3D&utm_source=qr"
           target="_blank"
         >
           <FaInstagram />
@@ -107,20 +118,19 @@ export default function Intro() {
 
         <a
           className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-          href="https://github.com"
+          href="https://youtube.com/@nityasoni108?si=5GxG4Q0l38_2yO6D"
           target="_blank"
         >
-          <FaPinterest />
+          <FaYoutube />
         </a>
 
         <a
           className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-          href="https://github.com"
+          href="https://www.facebook.com/profile.php?id=100084635049439"
           target="_blank"
         >
           <FaFacebook />
         </a>
-
       </motion.div>
     </section>
   );

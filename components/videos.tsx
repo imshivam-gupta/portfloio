@@ -13,13 +13,9 @@ interface VideoData {
   videouri: string;
 }
 
-
-
 const Carousel = dynamic(() => import("react-spring-3d-carousel") as any, {
   ssr: false,
 });
-
-
 
 async function getData() {
   let res = await fetch("/api/videos", {
@@ -34,7 +30,7 @@ async function getData() {
 }
 
 export default function Videos() {
-  const { ref } = useSectionInView("Paintings", 0.5);
+  const { ref } = useSectionInView("Videos", 0.5);
 
   const [images, setImages] = useState([]);
 
@@ -61,25 +57,28 @@ export default function Videos() {
   //   setState({ goToSlide: nextSlideIndex });
   // };
 
-  
-  let slides = images.map((video: VideoData, index) => {
+  let slides = images
+    .map((video: VideoData, index) => {
       console.log("video at index", index, video);
       return {
         key: video._id,
         content: (
-          <iframe 
-            width="700" 
-            height="400"
+          <iframe
+            width="600"
+            height="350"
             src={video.videouri}
-            className="w-[700px] !object-cover h-[400px] rounded-sm"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowFullScreen>
-          </iframe>
+            className=" !object-cover rounded-sm"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
         ),
       };
     })
     .map((slide, index) => {
-      return { ...slide, onClick: () => setState({...state, goToSlide: index }) };
+      return {
+        ...slide,
+        onClick: () => setState({ ...state, goToSlide: index }),
+      };
     });
 
   let xDown: number | null = null;
@@ -120,10 +119,10 @@ export default function Videos() {
   return (
     <section
       ref={ref}
-      id="projects"
+      id="videos"
       className="scroll-mt-28 mb-28 h-[50vh] w-full"
     >
-      <SectionHeading>My Work</SectionHeading>
+      <SectionHeading>Videos</SectionHeading>
 
       <div
         style={{ margin: "0 auto" }}
@@ -136,14 +135,13 @@ export default function Videos() {
           goToSlide={state.goToSlide}
           goToSlideDelay={1000}
           offsetRadius={state.offsetRadius}
-          showNavigation={state.showNavigation}
+          showNavigation={false}
           animationConfig={state.config}
         />
       </div>
 
-      <div className="flex justify-center text-xl font-bold">
-        {" "}
-        See my collection{" "}
+      <div className="flex justify-center text-xl font-bold mt-6 cursor-pointer hover:underline-offset-2 hover:underline">
+        Browse all videos
       </div>
     </section>
   );

@@ -119,7 +119,7 @@ export default function Projects() {
       id="projects"
       className="scroll-mt-28 mb-28 h-[50vh] w-full"
     >
-      <SectionHeading>My Work</SectionHeading>
+      <SectionHeading>Paintings</SectionHeading>
 
       <div
         style={{ margin: "0 auto" }}
@@ -132,14 +132,13 @@ export default function Projects() {
           goToSlide={state.goToSlide}
           goToSlideDelay={1000}
           offsetRadius={state.offsetRadius}
-          showNavigation={state.showNavigation}
+          showNavigation={false}
           animationConfig={state.config}
         />
       </div>
 
-      <div className="flex justify-center text-xl font-bold">
-        {" "}
-        See my collection{" "}
+      <div className="flex justify-center text-xl font-bold mt-4 cursor-pointer hover:underline-offset-2 hover:underline">
+        Browse all works
       </div>
     </section>
   );

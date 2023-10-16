@@ -12,7 +12,10 @@ export default async function Home() {
       <SectionDivider />
       <About />
       <Projects />
+      <div className="my-10"></div>
       <Videos />
+      <div className="my-10"></div>
+
       {/* <Skills /> */}
       {/* <Experience /> */}
       <Contact />
