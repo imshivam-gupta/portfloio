@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { config } from "react-spring";
 import { useEffect } from "react";
+import Image from "next/image";
 
 const Carousel2 = dynamic(() => import("react-spring-3d-carousel"), {
   ssr: false,
@@ -65,7 +66,14 @@ export default function Projects() {
     console.log("Image at index", index, image);
     return {
       key: image._id,
-      content: <img src={image.imageuri} alt={image.alt} className="w-[700px] !object-cover h-[400px] rounded-sm"/>
+      content: 
+        <Image 
+          src={image.imageuri} 
+          alt={image.alt} 
+          className="w-[700px] !object-cover h-[400px] rounded-sm"
+          width={700}
+          height={400}
+        />
     };
   }).map((slide, index) => {
     return { ...slide, onClick: () => setState({ goToSlide: index }) };

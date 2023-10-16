@@ -14,6 +14,18 @@ const nextConfig = {
           protocol: "https",
           hostname: "res.cloudinary.com",
         },
+        {
+          protocol: "https",
+          hostname: "i.pinimg.com",
+        },
+        {
+          protocol: "https",
+          hostname: "images6.alphacoders.com",
+        },
+        {
+          protocol: "https",
+          hostname: "images.alphacoders.com",
+        },
       ],
     },
     experimental: {
