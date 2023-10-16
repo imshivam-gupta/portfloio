@@ -2,19 +2,24 @@
 
 import React from "react";
 import SectionHeading from "./section-heading";
-import { projectsData } from "@/lib/data";
 import { useSectionInView } from "@/lib/hooks";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { config } from "react-spring";
 import { useEffect } from "react";
-import Image from "next/image";
 
-const Carousel2 = dynamic(() => import("react-spring-3d-carousel"), {
+interface VideoData {
+  _id: string;
+  videouri: string;
+}
+
+
+
+const Carousel = dynamic(() => import("react-spring-3d-carousel") as any, {
   ssr: false,
 });
 
-type ProjectProps = (typeof projectsData)[number];
+
 
 async function getData() {
   let res = await fetch("/api/videos", {
@@ -24,8 +29,6 @@ async function getData() {
     },
   });
   let allVideos = await res.json();
-  console.log("Fetched");
-  console.log("Yipee", allVideos);
 
   return allVideos;
 }
@@ -59,8 +62,7 @@ export default function Videos() {
   // };
 
   
-  let slides = images
-    .map((video, index) => {
+  let slides = images.map((video: VideoData, index) => {
       console.log("video at index", index, video);
       return {
         key: video._id,
@@ -70,31 +72,30 @@ export default function Videos() {
             height="400"
             src={video.videouri}
             className="w-[700px] !object-cover h-[400px] rounded-sm"
-            frameborder="0" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
+            allowFullScreen>
           </iframe>
         ),
       };
     })
     .map((slide, index) => {
-      return { ...slide, onClick: () => setState({ goToSlide: index }) };
+      return { ...slide, onClick: () => setState({...state, goToSlide: index }) };
     });
 
-  let xDown = null;
-  let yDown = null;
+  let xDown: number | null = null;
+  let yDown: number | null = null;
 
-  const getTouches = (evt) => {
-    return evt.touches || evt.originalEvent.touches;
+  const getTouches = (evt: React.TouchEvent) => {
+    return evt.touches || evt.nativeEvent.touches;
   };
 
-  const handleTouchStart = (evt) => {
+  const handleTouchStart = (evt: React.TouchEvent) => {
     const firstTouch = getTouches(evt)[0];
     xDown = firstTouch.clientX;
     yDown = firstTouch.clientY;
   };
 
-  const handleTouchMove = (evt) => {
+  const handleTouchMove = (evt: React.TouchEvent) => {
     if (!xDown || !yDown) {
       return;
     }
@@ -107,9 +108,9 @@ export default function Videos() {
 
     if (Math.abs(xDiff) > Math.abs(yDiff)) {
       if (xDiff > 0) {
-        setState({ goToSlide: state.goToSlide + 1 });
+        setState({ ...state, goToSlide: state.goToSlide + 1 });
       } else {
-        setState({ goToSlide: state.goToSlide - 1 });
+        setState({ ...state, goToSlide: state.goToSlide - 1 });
       }
     }
     xDown = null;
@@ -130,7 +131,7 @@ export default function Videos() {
         onTouchMove={handleTouchMove}
         className="w-full h-full"
       >
-        <Carousel2
+        <Carousel
           slides={slides}
           goToSlide={state.goToSlide}
           goToSlideDelay={1000}
