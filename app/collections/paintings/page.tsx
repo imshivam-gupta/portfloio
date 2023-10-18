@@ -1,181 +1,97 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import "./page.styles.css";
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+} from "@material-tailwind/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+
 
 export default function page() {
-  const imageObjects = [
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=0",
-      className: "card span-1 c-1 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=1",
-      className: "card span-1 c-4 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=2",
-      className: "card span-1 c-4 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=3",
-      className: "card span-1 c-5 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/400/400/?random&amp;amp;time=4",
-      className: "card span-2 c-3 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=5",
-      className: "card span-1 c-4 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/400/400/?random&amp;amp;time=6",
-      className: "card span-2 c-4 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/400/400/?random&amp;amp;time=7",
-      className: "card span-2 c-3 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/400/400/?random&amp;amp;time=8",
-      className: "card span-2 c-3 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=9",
-      className: "card span-1 c-1 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=10",
-      className: "card span-1 c-5 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/400/400/?random&amp;amp;time=11",
-      className: "card span-2 c-3 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=12",
-      className: "card span-1 c-2 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=13",
-      className: "card span-1 c-5 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/600/600/?random&amp;amp;time=14",
-      className: "card span-3 c-1 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/400/400/?random&amp;amp;time=15",
-      className: "card span-2 c-1 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/400/400/?random&amp;amp;time=16",
-      className: "card span-2 c-3 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/400/400/?random&amp;amp;time=17",
-      className: "card span-2 c-1 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=18",
-      className: "card span-1 c-5 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/400/400/?random&amp;amp;time=19",
-      className: "card span-2 c-2 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=20",
-      className: "card span-1 c-3 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/400/400/?random&amp;amp;time=21",
-      className: "card span-2 c-1 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/600/600/?random&amp;amp;time=22",
-      className: "card span-3 c-3 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=23",
-      className: "card span-1 c-3 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/400/400/?random&amp;amp;time=24",
-      className: "card span-2 c-4 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/400/400/?random&amp;amp;time=25",
-      className: "card span-2 c-4 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=26",
-      className: "card span-1 c-5 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=27",
-      className: "card span-1 c-5 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=28",
-      className: "card span-1 c-2 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=29",
-      className: "card span-1 c-4 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=30",
-      className: "card span-1 c-3 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=31",
-      className: "card span-1 c-3 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=32",
-      className: "card span-1 c-2 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=33",
-      className: "card span-1 c-5 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/400/400/?random&amp;amp;time=34",
-      className: "card span-2 c-1 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=35",
-      className: "card span-1 c-4 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/400/400/?random&amp;amp;time=36",
-      className: "card span-2 c-1 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=37",
-      className: "card span-1 c-1 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=38",
-      className: "card span-1 c-4 cursor-pointer",
-    },
-    {
-      url: "https://unsplash.it/200/200/?random&amp;amp;time=39",
-      className: "card span-1 c-2 cursor-pointer",
-    },
-  ];
+
+  const [images, setImages] = useState([]);
+  const [imageObjects, setImageObjects] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [activeImageURL, setActiveImageURL] = useState("");
+  const handleOpen = () => {
+    setOpen(!open);
+  }
+
+  useEffect(() => {
+
+    async function getData() {
+      let res = await fetch("/api/images", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      let allImages = await res.json();
+      // console.log("Fetched");
+      // console.log("Yipee", allImages);
+      return allImages;
+
+    }
+
+    
+    getData().then((data) => {
+      setImages(data.data);
+      // console.log(data.data);
+      const imageresp = data.data;
+      let temp = [];
+      imageresp.forEach((image, index) => {
+        temp.push({
+          url: image.imageuri,
+          className: "card span-2 c-2 cursor-pointer",
+        });
+      });
+      // temp=[...temp,...temp,...temp]
+      setImageObjects(temp);
+    });
+
+  }, []);
+
+  console.log(open)
+
+
+    function ImageCard({ imageUrl,handleOpen, c }) {
+      return (
+        <div className={c} onClick={()=>{
+          setActiveImageURL(imageUrl)
+          console.log(imageUrl)
+          handleOpen()
+        }} style={{ backgroundImage: `url(${imageUrl})` }}></div>
+      );
+    }
+
 
   return (
-    <div className="grid w-full bg-black px-5">
-      {imageObjects.map((imageUrl, index) => (
-        <ImageCard key={index} imageUrl={imageUrl.url} c={imageUrl.className} />
-      ))}
+    <div>
+    <div className="grid w-full px-5 pb-10 min-h-[70vh]">
+          {imageObjects.map((imageUrl, index) => (
+            <ImageCard key={index} imageUrl={imageUrl.url} c={imageUrl.className} handleOpen={handleOpen}/>
+          ))}
+    </div>
+    <Dialog open={open} handler={handleOpen} size={"xl"} className="fixed top-0 bottom-0 left-0 right-0 m-auto h-[50%] w-[50%]">
+          <DialogHeader className="w-full">
+            <Button
+              variant="text"
+              color="red"
+              onClick={handleOpen}
+              className="mr-4 ml-auto"
+            >
+              <XMarkIcon strokeWidth={2} className="w-6 h-6 text-black text-lg" />
+            </Button>
+          </DialogHeader>
+          <DialogBody className="h-full">
+            <img src={activeImageURL} className="h-[14rem] w-full object-contain"/>
+          </DialogBody>
+    </Dialog>
     </div>
   );
 }
 
-function ImageCard({ imageUrl, c }) {
-  return (
-    <div className={c} style={{ backgroundImage: `url(${imageUrl})` }}></div>
-  );
-}
+

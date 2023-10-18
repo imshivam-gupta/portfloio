@@ -239,19 +239,8 @@ export default function Test() {
       <SectionHeading>Videos</SectionHeading>
       <Carousel
         autoplay={true}
-        interval={2000}
-        infiniteLoop={true}
-        prevArrow={({ handlePrev }) => (
-          <IconButton
-            variant="text"
-            color="white"
-            size="lg"
-            onClick={handlePrev}
-            className="!absolute top-2/4 -translate-y-2/4 left-4 "
-          >
-            <ArrowLeftIcon strokeWidth={2} className="w-6 h-6" />
-          </IconButton>
-        )}
+        autoplayDelay={5000}
+        loop={true}
         nextArrow={({ handleNext }) => (
           <IconButton
             variant="text"
@@ -260,7 +249,18 @@ export default function Test() {
             onClick={handleNext}
             className="!absolute top-2/4 -translate-y-2/4 !right-4"
           >
-            <ArrowRightIcon strokeWidth={2} className="w-6 h-6" />
+            <ArrowRightIcon strokeWidth={2} className="w-6 h-6 text-black text-lg" />
+          </IconButton>
+        )}
+        prevArrow={({ handlePrev }) => (
+          <IconButton
+            variant="text"
+            color="white"
+            size="lg"
+            onClick={handlePrev}
+            className="!absolute top-2/4 -translate-y-2/4 left-4 "
+          >
+            <ArrowLeftIcon strokeWidth={2} className="w-6 h-6 text-black text-lg" />
           </IconButton>
         )}
       >

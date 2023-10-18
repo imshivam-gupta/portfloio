@@ -150,7 +150,7 @@
 //           animationConfig={state.config}
 //         />
 //       </div> */}
-
+// 1445344331532511
 //       <Slider3d slides={slidesprop} classNameaddnl="mt-16" />
 
 //       <div className="flex justify-center text-xl font-bold mt-12 cursor-pointer hover:underline-offset-2 hover:underline">
@@ -168,16 +168,13 @@ import { config } from "react-spring";
 import SectionHeading from "./section-heading";
 import { useEffect } from "react";
 import {
-  Button,
-  Card,
   Carousel,
   IconButton,
-  Rating,
-  Typography,
 } from "@material-tailwind/react";
 import Image from "next/image";
 
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 async function getData() {
   let res = await fetch("/api/images", {
@@ -252,19 +249,21 @@ export default function Test() {
       <SectionHeading>Paintings</SectionHeading>
       <Carousel
         autoplay={true}
-        interval={2000}
-        infiniteLoop={true}
-        prevArrow={({ handlePrev }) => (
-          <IconButton
-            variant="text"
-            color="white"
-            size="lg"
-            onClick={handlePrev}
-            className="!absolute top-2/4 -translate-y-2/4 left-4 "
-          >
-            <ArrowLeftIcon strokeWidth={2} className="w-6 h-6" />
-          </IconButton>
+        navigation={({ setActiveIndex, activeIndex, length }) => (
+          <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+            {new Array(length).fill("").map((_, i) => (
+              <span
+                key={i}
+                className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
+                  activeIndex === i ? "w-8 bg-white" : "w-4 bg-white/50"
+                }`}
+                onClick={() => setActiveIndex(i)}
+              />
+            ))}
+          </div>
         )}
+        autoplayDelay={5000}
+        loop={true}
         nextArrow={({ handleNext }) => (
           <IconButton
             variant="text"
@@ -273,9 +272,35 @@ export default function Test() {
             onClick={handleNext}
             className="!absolute top-2/4 -translate-y-2/4 !right-4"
           >
-            <ArrowRightIcon strokeWidth={2} className="w-6 h-6" />
+            <ArrowRightIcon strokeWidth={2} className="w-6 h-6 text-black text-lg" />
           </IconButton>
         )}
+        prevArrow={({ handlePrev }) => (
+          <IconButton
+            variant="text"
+            color="white"
+            size="lg"
+            onClick={handlePrev}
+            className="!absolute top-2/4 -translate-y-2/4 left-4 "
+          >
+            <ArrowLeftIcon strokeWidth={2} className="w-6 h-6 text-black text-lg" />
+          </IconButton>
+        )}
+        
+        // interval={2000}
+        // infiniteLoop={true}
+        // prevArrow={({ handlePrev }) => (
+        //   <IconButton
+        //     variant="text"
+        //     color="black"
+        //     size="lg"
+        //     onClick={handlePrev}
+        //     className="!absolute top-2/4 -translate-y-2/4 left-4 "
+        //   >
+        //     <ArrowLeftIcon strokeWidth={2} className="w-6 h-6" />
+        //   </IconButton>
+        // )}
+        
       >
         {/* {images.map((img, idx) => (
           <Card
@@ -294,7 +319,7 @@ export default function Test() {
         {slidesprop}
       </Carousel>
       <div className="flex justify-center text-xl font-bold mt-12 cursor-pointer hover:underline-offset-2 hover:underline">
-        Browse all works
+      <Link href="/collections/paintings">Browse all works</Link>
       </div>
     </>
   );
