@@ -6,16 +6,20 @@ import { config } from "react-spring";
 import SectionHeading from "./section-heading";
 import { useEffect } from "react";
 import {
-  Button,
-  Card,
   Carousel,
   IconButton,
-  Rating,
-  Typography,
 } from "@material-tailwind/react";
 import Image from "next/image";
 
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+
+
+interface ImageObject {
+  _id: string;
+  imageuri: string;
+  alt: string;
+}
+
 
 async function getData() {
   let res = await fetch("/api/images", {
@@ -51,7 +55,7 @@ export default function Test() {
   });
 
   let slides = images
-    .map((image, index) => {
+    .map((image: ImageObject, index) => {
       console.log("Image at index", index, image);
       return {
         key: image._id,
@@ -67,12 +71,12 @@ export default function Test() {
       };
     })
     .map((slide, index) => {
-      return { ...slide, onClick: () => setState({ goToSlide: index }) };
+      return { ...slide, onClick: () => setState({...state, goToSlide: index }) };
     });
 
-  const slidesprop = images.map((image, index) => {
+  const slidesprop = images.map((image:ImageObject, index) => {
     return (
-      <div className="w-full h-[400px] mx-auto flex items-center justify-center">
+      <div key={index} className="w-full h-[400px] mx-auto flex items-center justify-center">
         <Image
           src={image.imageuri}
           alt={image.alt}

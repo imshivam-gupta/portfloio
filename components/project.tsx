@@ -5,8 +5,23 @@ import { projectsData } from "@/lib/data";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-export default function Project({
-  title,
+interface ProjectProps {
+  title: string;
+  description: string;
+  tags: string[];
+  imageUrl: string;
+}
+
+
+interface ImageObject {
+  _id: string;
+  imageuri: string;
+  alt: string;
+}
+
+
+
+export default function Project({title,
   description,
   tags,
   imageUrl,

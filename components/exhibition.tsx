@@ -168,14 +168,10 @@ import { config } from "react-spring";
 import SectionHeading from "./section-heading";
 import { useEffect } from "react";
 import Link from "next/link";
-
+import dynamic from "next/dynamic";
 import {
-  Button,
-  Card,
   Carousel,
   IconButton,
-  Rating,
-  Typography,
 } from "@material-tailwind/react";
 import Image from "next/image";
 
@@ -189,13 +185,21 @@ async function getData() {
     },
   });
   let allImages = await res.json();
-  // console.log("Fetched");
-  // console.log("Yipee", allImages);
 
   return allImages;
 }
 
-export default function Test() {
+
+
+interface ImageObject {
+  _id: string;
+  imageuri: string;
+  alt: string;
+}
+
+
+
+function Test() {
   const { ref } = useSectionInView("Exhibitions", 0.5);
 
   const [images, setImages] = useState([]);
@@ -234,9 +238,9 @@ export default function Test() {
   //     return { ...slide, onClick: () => setState({ goToSlide: index }) };
   //   });
 
-  const slidesprop = images.map((image, index) => {
+  const slidesprop = images.map((image: ImageObject, index) => {
     return (
-      <div className="w-full h-[400px] mx-auto flex items-center justify-center">
+      <div key={index} className="w-full h-[400px] mx-auto flex items-center justify-center">
         <Image
           src={image.imageuri}
           alt={image.alt}
@@ -307,3 +311,7 @@ export default function Test() {
     </>
   );
 }
+
+export default dynamic(() => Promise.resolve(Test), {
+  ssr: false,
+});

@@ -175,6 +175,14 @@ import Image from "next/image";
 
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+interface ImageObject {
+  _id: string;
+  imageuri: string;
+  alt: string;
+}
+
 
 async function getData() {
   let res = await fetch("/api/images", {
@@ -190,7 +198,7 @@ async function getData() {
   return allImages;
 }
 
-export default function Test() {
+function Test() {
   const { ref } = useSectionInView("Paintings", 0.5);
 
   const [images, setImages] = useState([]);
@@ -229,9 +237,9 @@ export default function Test() {
   //     return { ...slide, onClick: () => setState({ goToSlide: index }) };
   //   });
 
-  const slidesprop = images.map((image, index) => {
+  const slidesprop = images.map((image: ImageObject, index) => {
     return (
-      <div className="w-full h-[400px] mx-auto flex items-center justify-center">
+      <div key={index} className="w-full h-[400px] mx-auto flex items-center justify-center">
         <Image
           src={image.imageuri}
           alt={image.alt}
@@ -324,3 +332,7 @@ export default function Test() {
     </>
   );
 }
+
+export default dynamic(() => Promise.resolve(Test), {
+  ssr: false,
+});

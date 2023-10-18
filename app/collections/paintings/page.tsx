@@ -7,62 +7,74 @@ import {
   DialogHeader,
   DialogBody,
 } from "@material-tailwind/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import dynamic from "next/dynamic";
 
-export default function page() {
-  const [images, setImages] = useState([]);
-  const [imageObjects, setImageObjects] = useState([]);
-  const [open, setOpen] = React.useState(false);
-  const [activeImageURL, setActiveImageURL] = useState("");
+interface Image {
+  url: string;
+  className: string;
+}
+
+interface ImageObject {
+  _id: string;
+  imageuri: string;
+  alt: string;
+}
+
+interface PageProps {}
+
+const Page: React.FC<PageProps> = (props) => {
+  const [images, setImages] = useState<Image[]>([]);
+  const [imageObjects, setImageObjects] = useState<Image[]>([]);
+  const [open, setOpen] = useState<boolean>(false);
+  const [activeImageURL, setActiveImageURL] = useState<string>("");
+
   const handleOpen = () => {
     setOpen(!open);
   };
 
-  useEffect(() => {
-    async function getData() {
-      let res = await fetch("/api/images", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      let allImages = await res.json();
-      // console.log("Fetched");
-      // console.log("Yipee", allImages);
-      return allImages;
-    }
-
-    getData().then((data) => {
-      setImages(data.data);
-      // console.log(data.data);
-      const imageresp = data.data;
-      let temp = [];
-      imageresp.forEach((image, index) => {
-        temp.push({
-          url: image.imageuri,
-          className: "card span-2 c-2 cursor-pointer",
-        });
-      });
-      // temp=[...temp,...temp,...temp]
-      setImageObjects(temp);
+  async function getData() {
+    let res = await fetch("/api/images", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
+    let allImages = await res.json();
+    const imageresp = allImages.data;
+    let temp: Image[] = [];
+
+    imageresp.forEach((image:ImageObject) => {
+      temp.push({
+        url: image.imageuri,
+        className: "card span-2 c-2 cursor-pointer",
+      });
+    });
+
+    setImageObjects(temp);
+    return allImages;
+  }
+
+  useEffect(() => {
+    getData();
+    return () => {};
   }, []);
 
-  console.log(open);
-
-  function ImageCard({ imageUrl, handleOpen, c }) {
+  const ImageCard: React.FC<{ imageUrl: string; c: string }> = ({
+    imageUrl,
+    c,
+  }) => {
     return (
       <div
         className={c}
         onClick={() => {
           setActiveImageURL(imageUrl);
-          console.log(imageUrl);
           handleOpen();
         }}
         style={{ backgroundImage: `url(${imageUrl})` }}
       ></div>
     );
-  }
+  };
 
   return (
     <div>
@@ -72,20 +84,17 @@ export default function page() {
             key={index}
             imageUrl={imageUrl.url}
             c={imageUrl.className}
-            handleOpen={handleOpen}
           />
         ))}
       </div>
       <Dialog
         open={open}
         handler={handleOpen}
-        // size={"xl"}
         className="fixed top-0 bottom-0 left-0 right-0 m-auto w-[50%] h-[60%] "
       >
         <DialogHeader className="w-full h-13">
           <Button
             variant="text"
-            color="black"
             onClick={handleOpen}
             className="mr-4 ml-auto"
           >
@@ -101,4 +110,17 @@ export default function page() {
       </Dialog>
     </div>
   );
-}
+};
+
+const getStaticProps = async () => {
+  const res = await fetch("/api/images");
+  const data = await res.json();
+  return {
+    props: { data },
+  };
+};
+
+export default dynamic(() => Promise.resolve(Page), {
+  ssr: false,
+});
+

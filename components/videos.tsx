@@ -154,16 +154,21 @@ import { config } from "react-spring";
 import SectionHeading from "./section-heading";
 import { useEffect } from "react";
 import {
-  Button,
-  Card,
   Carousel,
   IconButton,
-  Rating,
-  Typography,
 } from "@material-tailwind/react";
 import Image from "next/image";
 
+
+interface VideoInterface {
+  _id: string;
+  videouri: string;
+  alt: string;
+}
+
+
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import dynamic from "next/dynamic";
 
 async function getData() {
   let res = await fetch("/api/videos", {
@@ -177,7 +182,7 @@ async function getData() {
   return allVideos;
 }
 
-export default function Test() {
+ function Test() {
   const { ref } = useSectionInView("Paintings", 0.5);
 
   const [images, setImages] = useState([]);
@@ -219,12 +224,11 @@ export default function Test() {
   //     };
   //   });
 
-  const slidesprop = images.map((image, index) => {
+  const slidesprop = images.map((image:VideoInterface, index) => {
     return (
-      <div className="w-full h-[400px] mx-auto flex items-center justify-center ">
+      <div key={index} className="w-full h-[400px] mx-auto flex items-center justify-center ">
         <iframe
           src={image.videouri}
-          alt={image.alt}
           className="!w-[600px] !object-contain h-[400px] rounded-sm max-w-[700px] "
           width={400}
           height={400}
@@ -286,3 +290,7 @@ export default function Test() {
     </>
   );
 }
+
+export default dynamic(() => Promise.resolve(Test), {
+  ssr: false,
+});

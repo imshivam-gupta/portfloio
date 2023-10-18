@@ -69,6 +69,7 @@ export default function Contact() {
           maxLength={500}
           placeholder="Your email"
         />
+        
         <input
           className="h-14 px-4 mt-3 rounded-lg borderBlack dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
           name="senderTelephone"
