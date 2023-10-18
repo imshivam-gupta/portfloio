@@ -2,35 +2,37 @@
 
 // import React from "react";
 // import SectionHeading from "./section-heading";
+// import { projectsData } from "@/lib/data";
 // import { useSectionInView } from "@/lib/hooks";
 // import dynamic from "next/dynamic";
 // import { useState } from "react";
 // import { config } from "react-spring";
 // import { useEffect } from "react";
+// import Image from "next/image";
+// import Slider3d from "./Slider3d";
 
-// interface VideoData {
-//   _id: string;
-//   videouri: string;
-// }
-
-// const Carousel = dynamic(() => import("react-spring-3d-carousel") as any, {
+// const Carousel2 = dynamic(() => import("react-spring-3d-carousel"), {
 //   ssr: false,
 // });
 
+// type ProjectProps = (typeof projectsData)[number];
+
 // async function getData() {
-//   let res = await fetch("/api/videos", {
+//   let res = await fetch("/api/images", {
 //     method: "GET",
 //     headers: {
 //       "Content-Type": "application/json",
 //     },
 //   });
-//   let allVideos = await res.json();
+//   let allImages = await res.json();
+//   console.log("Fetched");
+//   console.log("Yipee", allImages);
 
-//   return allVideos;
+//   return allImages;
 // }
 
-// export default function Videos() {
-//   const { ref } = useSectionInView("Videos", 0.5);
+// export default function Projects() {
+//   const { ref } = useSectionInView("Paintings", 0.5);
 
 //   const [images, setImages] = useState([]);
 
@@ -50,7 +52,7 @@
 //   // useEffect(() => {
 //   //   const intervalId = setInterval(autoMoveToNextSlide, 10000);
 //   //   return () => clearInterval(intervalId);
-//   // }, []);
+//   // }, [state.goToSlide]);
 
 //   // const autoMoveToNextSlide = () => {
 //   //   const nextSlideIndex = (state.goToSlide + 1) % slides.length;
@@ -58,42 +60,52 @@
 //   // };
 
 //   let slides = images
-//     .map((video: VideoData, index) => {
+//     .map((image, index) => {
+//       console.log("Image at index", index, image);
 //       return {
-//         key: video._id,
+//         key: image._id,
 //         content: (
-//           <iframe
-//             width="600"
-//             height="350"
-//             src={video.videouri}
-//             className=" !object-cover rounded-sm"
-//             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-//             allowFullScreen
-//           ></iframe>
+//           <Image
+//             src={image.imageuri}
+//             alt={image.alt}
+//             className="w-[900px] !object-cover h-[400px] rounded-sm"
+//             width={900}
+//             height={400}
+//           />
 //         ),
 //       };
 //     })
 //     .map((slide, index) => {
-//       return {
-//         ...slide,
-//         onClick: () => setState({ ...state, goToSlide: index }),
-//       };
+//       return { ...slide, onClick: () => setState({ goToSlide: index }) };
 //     });
 
-//   let xDown: number | null = null;
-//   let yDown: number | null = null;
+//   let xDown = null;
+//   let yDown = null;
 
-//   const getTouches = (evt: React.TouchEvent) => {
-//     return evt.touches || evt.nativeEvent.touches;
+//   const getTouches = (evt) => {
+//     return evt.touches || evt.originalEvent.touches;
 //   };
 
-//   const handleTouchStart = (evt: React.TouchEvent) => {
+//   const handleTouchStart = (evt) => {
 //     const firstTouch = getTouches(evt)[0];
 //     xDown = firstTouch.clientX;
 //     yDown = firstTouch.clientY;
 //   };
 
-//   const handleTouchMove = (evt: React.TouchEvent) => {
+//   const slidesprop = images.map((image, index) => {
+//     return (
+//       <Image
+//         src={image.imageuri}
+//         alt={image.alt}
+//         className="!w-[400px] !object-cover h-[200px] rounded-sm max-w-[700px]"
+//         width={400}
+//         height={400}
+//         key={index}
+//       />
+//     );
+//   });
+
+//   const handleTouchMove = (evt) => {
 //     if (!xDown || !yDown) {
 //       return;
 //     }
@@ -106,9 +118,9 @@
 
 //     if (Math.abs(xDiff) > Math.abs(yDiff)) {
 //       if (xDiff > 0) {
-//         setState({ ...state, goToSlide: state.goToSlide + 1 });
+//         setState({ goToSlide: state.goToSlide + 1 });
 //       } else {
-//         setState({ ...state, goToSlide: state.goToSlide - 1 });
+//         setState({ goToSlide: state.goToSlide - 1 });
 //       }
 //     }
 //     xDown = null;
@@ -118,18 +130,18 @@
 //   return (
 //     <section
 //       ref={ref}
-//       id="videos"
-//       className="scroll-mt-28 mb-28 h-[50vh] w-full px-4 mx-auto"
+//       id="projects"
+//       className="scroll-mt-28 mb-28 h-[50vh] w-full"
 //     >
-//       <SectionHeading>Videos</SectionHeading>
+//       <SectionHeading>Paintings</SectionHeading>
 
-//       <div
+//       {/* <div
 //         style={{ margin: "0 auto" }}
 //         onTouchStart={handleTouchStart}
 //         onTouchMove={handleTouchMove}
 //         className="w-full h-full"
 //       >
-//         <Carousel
+//         <Carousel2
 //           slides={slides}
 //           goToSlide={state.goToSlide}
 //           goToSlideDelay={1000}
@@ -137,10 +149,12 @@
 //           showNavigation={false}
 //           animationConfig={state.config}
 //         />
-//       </div>
+//       </div> */}
 
-//       <div className="flex justify-center text-xl font-bold mt-6 cursor-pointer hover:underline-offset-2 hover:underline">
-//         Browse all videos
+//       <Slider3d slides={slidesprop} classNameaddnl="mt-16" />
+
+//       <div className="flex justify-center text-xl font-bold mt-12 cursor-pointer hover:underline-offset-2 hover:underline">
+//         Browse all works
 //       </div>
 //     </section>
 //   );
@@ -153,6 +167,8 @@ import { useState } from "react";
 import { config } from "react-spring";
 import SectionHeading from "./section-heading";
 import { useEffect } from "react";
+import Link from "next/link";
+
 import {
   Button,
   Card,
@@ -166,15 +182,17 @@ import Image from "next/image";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 
 async function getData() {
-  let res = await fetch("/api/videos", {
+  let res = await fetch("/api/images", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   });
-  let allVideos = await res.json();
+  let allImages = await res.json();
+  // console.log("Fetched");
+  // console.log("Yipee", allImages);
 
-  return allVideos;
+  return allImages;
 }
 
 export default function Test() {
@@ -185,7 +203,7 @@ export default function Test() {
   useEffect(() => {
     getData().then((data) => {
       setImages(data.data);
-      console.log(data.data);
+      // console.log(data.data);
     });
   }, []);
 
@@ -197,35 +215,32 @@ export default function Test() {
   });
 
   // let slides = images
-  //   .map((video, index) => {
+  //   .map((image, index) => {
+  //     console.log("Image at index", index, image);
   //     return {
-  //       key: video._id,
+  //       key: image._id,
   //       content: (
-  //         <iframe
-  //           width="600"
-  //           height="350"
-  //           src={video.videouri}
-  //           className=" !object-cover rounded-sm"
-  //           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  //           allowFullScreen
-  //         ></iframe>
+  //         <Image
+  //           src={image.imageuri}
+  //           alt={image.alt}
+  //           className="w-[900px] !object-cover h-[400px] rounded-sm"
+  //           width={900}
+  //           height={400}
+  //         />
   //       ),
   //     };
   //   })
   //   .map((slide, index) => {
-  //     return {
-  //       ...slide,
-  //       onClick: () => setState({ ...state, goToSlide: index }),
-  //     };
+  //     return { ...slide, onClick: () => setState({ goToSlide: index }) };
   //   });
 
   const slidesprop = images.map((image, index) => {
     return (
-      <div className="w-full h-[400px] mx-auto flex items-center justify-center ">
-        <iframe
-          src={image.videouri}
+      <div className="w-full h-[400px] mx-auto flex items-center justify-center">
+        <Image
+          src={image.imageuri}
           alt={image.alt}
-          className="!w-[600px] !object-contain h-[400px] rounded-sm max-w-[700px] "
+          className="!w-[500px] !object-contain h-[400px] rounded-sm max-w-[700px]"
           width={400}
           height={400}
           key={index}
@@ -236,7 +251,7 @@ export default function Test() {
 
   return (
     <>
-      <SectionHeading>Videos</SectionHeading>
+      <SectionHeading>Exhibition</SectionHeading>
       <Carousel
         autoplay={true}
         interval={2000}
@@ -281,7 +296,7 @@ export default function Test() {
         {slidesprop}
       </Carousel>
       <div className="flex justify-center text-xl font-bold mt-12 cursor-pointer hover:underline-offset-2 hover:underline">
-        Browse all videos
+        <Link href="/collections"> Browse all exhibition</Link>
       </div>
     </>
   );
