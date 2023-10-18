@@ -264,7 +264,10 @@ export default function Test() {
             onClick={handleNext}
             className="!absolute top-2/4 -translate-y-2/4 !right-4"
           >
-            <ArrowRightIcon strokeWidth={2} className="w-6 h-6 text-black text-lg" />
+            <ArrowRightIcon
+              strokeWidth={2}
+              className="w-6 h-6 text-black text-lg"
+            />
           </IconButton>
         )}
         prevArrow={({ handlePrev }) => (
@@ -275,7 +278,10 @@ export default function Test() {
             onClick={handlePrev}
             className="!absolute top-2/4 -translate-y-2/4 left-4 "
           >
-            <ArrowLeftIcon strokeWidth={2} className="w-6 h-6 text-black text-lg" />
+            <ArrowLeftIcon
+              strokeWidth={2}
+              className="w-6 h-6 text-black text-lg"
+            />
           </IconButton>
         )}
       >
@@ -296,7 +302,7 @@ export default function Test() {
         {slidesprop}
       </Carousel>
       <div className="flex justify-center text-xl font-bold mt-12 cursor-pointer hover:underline-offset-2 hover:underline">
-        <Link href="/collections"> Browse all exhibition</Link>
+        <Link href="/collections/exhibition"> Browse all exhibition</Link>
       </div>
     </>
   );
